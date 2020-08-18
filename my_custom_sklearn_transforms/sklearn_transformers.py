@@ -1,5 +1,5 @@
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn import preprocessing
+from sklearn.preprocessing import LabelEncoder
 
 
 
@@ -17,7 +17,7 @@ class DropColumns(BaseEstimator, TransformerMixin):
         # Devolvemos un nuevo dataframe de datos sin las columnas no deseadas
         return data.drop(labels=self.columns, axis='columns')
     
-class DeleteInconsistentRows(BaseEstimator, TransformerMixin):
+class DeleteInconsistentRows(BaseEstimator, TransformerMixin, LabelEncoder):
     def __init__(self):
        
         return
@@ -28,7 +28,7 @@ class DeleteInconsistentRows(BaseEstimator, TransformerMixin):
     def transform(self,X):
         data = X.copy()
         
-        le = preprocessing.LabelEncoder()
+        le = LabelEncoder()
         le.fit(['beginner_front_end','advanced_front_end','beginner_backend','advanced_backend','beginner_data_science','advanced_data_science'])
         data['PROFILE'] = le.transform(data['PROFILE'])
         
