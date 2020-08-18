@@ -27,10 +27,9 @@ class DeleteInconsistentRows(BaseEstimator, TransformerMixin, LabelEncoder):
     
     def transform(self,X):
         data = X.copy()
-        
-        le = LabelEncoder()
-        le.fit(['beginner_front_end','advanced_front_end','beginner_backend','advanced_backend','beginner_data_science','advanced_data_science'])
-        data['PROFILE'] = le.transform(data['PROFILE'])
+       
+        LabelEncoder().fit(['beginner_front_end','advanced_front_end','beginner_backend','advanced_backend','beginner_data_science','advanced_data_science'])
+        data['PROFILE'] = LabelEncoder().transform(data['PROFILE'])
         
         data = data[((data['NUM_COURSES_BEGINNER_DATASCIENCE'] != 0) | (data['NUM_COURSES_ADVANCED_DATASCIENCE'] != 0) & (data['HOURS_DATASCIENCE'] != 0))]
         data = data[((data['NUM_COURSES_BEGINNER_FRONTEND'] != 0) | (data['NUM_COURSES_ADVANCED_FRONTEND'] != 0) & (data['HOURS_FRONTEND'] != 0))]
@@ -40,5 +39,5 @@ class DeleteInconsistentRows(BaseEstimator, TransformerMixin, LabelEncoder):
         data = data[((data['NUM_COURSES_BEGINNER_FRONTEND'] != 0) | (data['NUM_COURSES_ADVANCED_FRONTEND'] != 0) & (data['AVG_SCORE_FRONTEND'] != 0))]
         data = data[((data['NUM_COURSES_BEGINNER_BACKEND'] != 0) | (data['NUM_COURSES_ADVANCED_BACKEND'] != 0) & (data['AVG_SCORE_BACKEND'] != 0))]
         
-        data['PROFILE'] = le.inverse_transform(data['PROFILE'].astype(int))
+        data['PROFILE'] = LabelEncoder().inverse_transform(data['PROFILE'].astype(int))
         return data
