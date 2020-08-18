@@ -17,9 +17,8 @@ class DropColumns(BaseEstimator, TransformerMixin):
         # Devolvemos un nuevo dataframe de datos sin las columnas no deseadas
         return data.drop(labels=self.columns, axis='columns')
     
-class DeleteInconsistentRows(BaseEstimator, TransformerMixin, LabelEncoder):
+class DeleteInconsistentRows(BaseEstimator, TransformerMixin):
     def __init__(self):
-       
         return
         
     def fit(self,X,y=None):
