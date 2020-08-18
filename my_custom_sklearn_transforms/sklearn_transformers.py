@@ -28,7 +28,7 @@ class DeleteInconsistentRows(BaseEstimator, TransformerMixin):
     
     def transform(self,X):
         data = X.copy()
-        data['PROFILE'] = le.transform(data['PROFILE'])
+        data['PROFILE'] = self.le.transform(data['PROFILE'])
         
         data = data[((data['NUM_COURSES_BEGINNER_DATASCIENCE'] != 0) | (data['NUM_COURSES_ADVANCED_DATASCIENCE'] != 0) & (data['HOURS_DATASCIENCE'] != 0))]
         data = data[((data['NUM_COURSES_BEGINNER_FRONTEND'] != 0) | (data['NUM_COURSES_ADVANCED_FRONTEND'] != 0) & (data['HOURS_FRONTEND'] != 0))]
@@ -38,5 +38,5 @@ class DeleteInconsistentRows(BaseEstimator, TransformerMixin):
         data = data[((data['NUM_COURSES_BEGINNER_FRONTEND'] != 0) | (data['NUM_COURSES_ADVANCED_FRONTEND'] != 0) & (data['AVG_SCORE_FRONTEND'] != 0))]
         data = data[((data['NUM_COURSES_BEGINNER_BACKEND'] != 0) | (data['NUM_COURSES_ADVANCED_BACKEND'] != 0) & (data['AVG_SCORE_BACKEND'] != 0))]
         
-        data['PROFILE'] = le.inverse_transform(data['PROFILE'].astype(int))
+        data['PROFILE'] = self.le.inverse_transform(data['PROFILE'].astype(int))
         return data
